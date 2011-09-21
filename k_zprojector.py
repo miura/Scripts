@@ -1,6 +1,22 @@
-# Parses image files in separate folders
+# Zprojects 4D image files under separate folders within a meta folder
+#
+# works from command line, intended to be used in server - data storage. 
+# input: arg1 = path to the meta folder
+# 	arg2 = channel string "C01" or "C02"
+# output: a 2D time series under meta folder.
+# example commandline
+#
+# 	fiji --headless /g/cmci/Scripts/k_zprojector.py /<path>/folder C01
+# 
+# Kota Miura (miura@embl.de) 
+# 20110922
 
+import sys
 from java.io import File as JFile
+import ij.IJ as IJ
+import ij.ImageStack as ImageStack
+import ij.ImagePlus as ImagePlus
+import ij.plugin.ZProjector as ZProjector
 
 def createStackImp(imp):
 	ims = ImageStack(imp.getWidth(), imp.getHeight())
@@ -25,7 +41,7 @@ def importAChannle(path, chstr):
 					simp = createStackImp(imp)
 				else:
 					simp.getStack().addSlice(str(idx), imp.getProcessor())
-				print str(idx)+ ": " +  i
+#				print str(idx)+ ": " +  i
 	return simp
 					
 
@@ -38,33 +54,38 @@ def maxZprojection(stackimp):
 	return zpimp
 
 def metaFolders(ppath, chstr):
-	dir = JFile(ppath)
-	filesA = dir.list()
+	dirc = JFile(ppath)
+	print dirc
+	filesA = dirc.list()
+	
 	sp = JFile.separator
 	filesL = filesA.tolist()
 	filesL.sort()
 	projsimp = None
 	for idx, i in enumerate(filesL):
 		path = ppath + sp + i
-		stackimp = importAChannle(path, chstr)
-		zpstackimp = maxZprojection(stackimp)
-		if projsimp == None:
-			projsimp = createStackImp(zpstackimp):
-		else:
-			projsimp.getStack().addSlice("T" + str(idx), zpstackimp.getProcessor())
-		print "--- TimePoint" + str(idx)+ " max Zprojection added ---"
+		pathcheck = JFile(path)
+		if pathcheck.isDirectory(): 
+			stackimp = importAChannle(path, chstr)
+			zpstackimp = maxZprojection(stackimp)
+			if projsimp == None:
+				projsimp = createStackImp(zpstackimp)
+			else:
+				projsimp.getStack().addSlice("T" + str(idx), zpstackimp.getProcessor())
+			print "--- TimePoint" + str(idx)+ " max Zprojection added ---"
 	return projsimp
 		
 	
 #path = "Z:/likun/10uM rapa 1h_e1 caudal fin/T00001"
-ppath = "Z:/likun/10uM rapa 1h_e1 caudal fin"
-#path = "D:\\People\\Tina\\20110813\\out";
-#path = "Z:\\Tina\\test";
-#zpstackimp.show()
-chstr = "C01"
+#ppath = "Z:/likun/10uM rapa 1h_e1 caudal fin"
+
+#ppath = "/g/cmci/likun/10uM_rapa_1h_e1_caudal_fin"
+#chstr = "C01"
+
+ppath = sys.argv[1] 	
+chstr = sys.argv[2]
+sp = JFile.separator 	
 zproimp = metaFolders(ppath, chstr)
 IJ.saveAs(zproimp, "Tiff", ppath + sp + "zproj"+chstr+".tif")
-
-
 
 			
