@@ -1,0 +1,6 @@
+commandline examples 
+
+povray +Ifirst.pov +Ofirst.png +FN +V
+
+... this has been enough for successful compilation. 
+
