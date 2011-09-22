@@ -1,0 +1,110 @@
+Simple widget examples for Lab.
+
+pyqt_label.py
+	A simple label, with nothing else
+
+pyqt_h_box.py 
+
+	Put more than one thing in a widget or in a frame arranged
+	horizontally. In this case two labels and two buttons in an HBox.
+
+pyqt_v_box.py 
+
+	Put more than one thing in a widget or in a frame arranged
+	vertically. In this case two labels and two buttons in a VBox.
+
+pyqt_frame.py 
+
+	Create a simple frame and give it a size. Really boring, but
+	it shows that a frame by itslef is no big deal.
+
+	Shows how make_widget_red can be used to make a given widget
+	easy to see in a group of them
+
+ pyqt_frame2.py
+
+	Now use a frame to help visually group 2 of 3 labels to
+	give it some visible definition. Use a second VBox to arrange
+	the 3rd label above the frame containing the other two. sssse
+	make_widget_red to see which objects in the code correspond to
+	which parts of the GUI.
+
+pyqt_text_box.py 
+
+	How how to create a text box, put some text init, and then
+	append some text. This example also illustrates the Line Edit
+	widget since that is the one where we enter lines added to the
+	text widget. It illustrates connection of a signal to a slot
+	and some incidental operations on the two widgets.
+
+pyqt_slider.py 
+	
+	This shows how to define a slider and users a label to show
+	how the slider value changes under different circumstances. It
+	also shows how to link slider signals to handler routines.
+
+pyqt_check_button.py
+	
+	Shows how to associate checkbox state with handlers. In this
+	case the two handlers associated with the two check boxes
+	control the text of the label and the color of the label's
+	background. The color change method makes use of the Label
+	widget's style sheet. This is in contrast to the
+	make_widget_red() approach used in pyqt_frame2.py and 
+	other examples.
+
+pyqt_combo_box.py
+	
+	Shows a simple combo box with three menu values, and how the
+	signal announcing that the index of the current choice can be
+	linked to a handler. In this case the handler modifies a label
+	in parallel with the change in current selection in the
+	combobox.
+
+pyqt_radio_button.py
+	
+	This example illustrates how to create a set of radio buttons to
+	represent various options that a user can chose from.  
+
+pyqt_toggle_button.py
+	
+	Shows how a QPushButton can have its "Checkable" property set,
+	and by linking the "cliked()" signal to a handler, the label
+	of the button can be changed to relfect the checked/unchecked
+	state.
+
+pyqt_progress_bar.py
+
+	Sets up a progress bar with a range of 1 to 100 and then
+	associate a timer with an event handler that modifies the
+	progress bar value. As a result, the progess bar value
+	increase by one every 1/10th of a second.
+
+pyqt_calendar.py
+	
+	In this example we will demonstrate the use of a Calender in an
+	Application. Several applications, need date input from a user. 
+	Launching a calender and getting the required date from the user is 
+	often more convenient than having the user type out a date.
+
+pyqt_basic_drawing.py 
+
+        This is a basic drawing example that demonstrates basic
+	drawing capability in a widget
+
+
+pyqt_basic_animation.py
+
+	This is a basic drawing example that demonstrates basic
+	animation capability a widget. It is similar to the
+	pyqt_basic_drawing.py with the line moving.
+
+pyqt_tooltips.py
+
+	This is a modification of an example from the PyQt examples
+	folder. The functionality has been reduced and lots of
+	comments have been added. The example demonstrates how some
+	common shapes using the low level painter methods. The shapes
+	can be moved around within the widget. This is done using the
+	mousePress, mouseMove and mouseRelase event callbacks.
+

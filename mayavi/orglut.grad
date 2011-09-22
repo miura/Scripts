@@ -1,0 +1,7 @@
+V 2.0 Color Gradient File
+ScalingFunction: 
+ScalingParameter: 0.5
+ControlPoints: (pos fixed bindings h s v a)
+  0.0 True rgbhsva 0.166666666667 0 0.0 0.0
+  0.491638795987 False rgbhsv 0.0 0.233200597312 0.643807082198 0.102822580645
+  1.0 True rgbhsva 0.113924050633 1.0 1.0 0.2
