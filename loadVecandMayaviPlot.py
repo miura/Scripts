@@ -2,10 +2,9 @@
 #20111202
 #Kota Miura (miura@embl.de)
 
-filename = 'c:/dropbox/My Dropbox/Mette/vecout.csv'
 #filename = '/Users/miura/Dropbox/Mette/Tracks.csv'
 filename = '/Users/miura/Dropbox/Mette/vecout.csv'
-
+filename = 'c:/dropbox/My Dropbox/Mette/vecout.csv'
 #import csv
 # data = csv.reader(open('C:/dropbox/My Dropbox/Pairs_NowCorrectDot.txt', 'rb'), delimiter='\t')
 #data = csv.reader(open('/Users/miura/Dropbox/Mette/Tracks.csv'))
