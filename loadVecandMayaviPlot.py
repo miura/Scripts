@@ -4,6 +4,7 @@
 
 filename = 'c:/dropbox/My Dropbox/Mette/vecout.csv'
 #filename = '/Users/miura/Dropbox/Mette/Tracks.csv'
+filename = '/Users/miura/Dropbox/Mette/vecout.csv'
 
 #import csv
 # data = csv.reader(open('C:/dropbox/My Dropbox/Pairs_NowCorrectDot.txt', 'rb'), delimiter='\t')
@@ -36,10 +37,20 @@ from mayavi import mlab as maya
 ##p1s = points3d(sx, sy, sz, scale_factor=.45, color=(1, 0, 0))
 
 #trial with colorlist 
-#colorlist = []
+colorlist = []
 #for row in range(len(ind)):
-    #colorlist.append((frame[row]/22, 0, 1 - frame[row]/22))
-
+    #if frame[row] is not 0:
+      #colorlist.append((frame[row]/22, 0, 1 - frame[row]/22))
+    #else
+      #colorlist.append(0, 0, 0)
+      
+for row in range(len(frame)):
+    if frame[row] is not 0:
+      tup = (frame[row]/22, 0.3, 1 - frame[row]/22)
+      colorlist.append(tup)
+    else:
+      tup = (0, 0.3, 0)
+      colorlist.append(tup)
 # here there should be constructing grid and assign vectors to each. 
 # x, y, z = numpy.mgrid[0:max(gx)+10, 0:max(gy)+10, 0:max(gz)+10]
 
@@ -85,7 +96,11 @@ from mayavi import mlab as maya
         #curtid = trajID[d-1]
         #print 'trajectory: ', trajID[d-1]
 #quiver3d(px, py, pz, vx, vy, vz, color=(0, 1, 1), opacity=0.3, mode='2darrow', scale_factor=1)
-quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
+#quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
+for row in range(len(frame)):
+  quiver3d( gx[row], gy[row], gz[row], ux[row], vy[row], wz[row], color=colorlist[row], opacity=1, mode='2darrow', scale_factor=1, line_width=4 )
+  #quiver3d( gx[row], gy[row], gz[row], ux[row], vy[row], wz[row], color=colorlist[row], opacity=1, mode='cylinder', scale_factor=1, scale_mode='vector')
+#quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
 ##flow(px, py, pz, vx, vy, vz, color=(0, 1, 1), opacity=0.7 )
 maya.show()
 
