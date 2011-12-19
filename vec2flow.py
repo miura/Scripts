@@ -8,6 +8,7 @@
 filename = '/Users/miura/Dropbox/Mette/vecout.csv'
 filename = '/Users/miura/Dropbox/Mette/vecout27h1.csv'
 filename = 'c:/dropbox/My Dropbox/Mette/vecout.csv'
+filename = 'c:/dropbox/My Dropbox/Mette/vecout27h1.csv'
 #import csv
 # data = csv.reader(open('C:/dropbox/My Dropbox/Pairs_NowCorrectDot.txt', 'rb'), delimiter='\t')
 #data = csv.reader(open('/Users/miura/Dropbox/Mette/Tracks.csv'))
@@ -76,17 +77,27 @@ vnn[nanpos] = 0.0
 nanpos = np.isnan(wnn)
 wnn[nanpos] = 0.0
 
-#quiver3d( x, y, z, unn, vnn, wnn)# colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
+##### simple show of vectors
+quiver3d( x, y, z, unn, vnn, wnn)# colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
+#quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
 
-flow(x, y, z, unn, vnn, wnn)#, color=(0, 1, 1), opacity=0.7 )
+##### trial to show flow
+ff = flow(x, y, z, unn, vnn, wnn)#, color=(0, 1, 1), opacity=0.7 )
 
 #quiver3d(px, py, pz, vx, vy, vz, color=(0, 1, 1), opacity=0.3, mode='2darrow', scale_factor=1)
 
 #quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
 
+##### Color coded tracks. 
 #for row in range(len(frame)):
-#  quiver3d( gx[row], gy[row], gz[row], ux[row], vy[row], wz[row], color=colorlist[row], opacity=1, mode='2darrow', scale_factor=1, line_width=4 )
+  #quiver3d( gx[row], gy[row], gz[row], ux[row], vy[row], wz[row], color=colorlist[row], opacity=1, mode='2darrow', scale_factor=1, line_width=4 )
 
-#quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
+
+######vector field example
+maya.outline()
+#src = maya.pipeline.vector_field(x, y, z, unn, vnn, wnn)
+#maya.pipeline.vectors(src, scale_factor=3.0)
+######################
+
 maya.show()
 
