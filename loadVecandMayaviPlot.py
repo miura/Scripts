@@ -2,9 +2,10 @@
 #20111202
 #Kota Miura (miura@embl.de)
 
+filename = 'c:/dropbox/My Dropbox/Mette/vecout.csv'
 #filename = '/Users/miura/Dropbox/Mette/Tracks.csv'
 filename = '/Users/miura/Dropbox/Mette/vecout.csv'
-filename = 'c:/dropbox/My Dropbox/Mette/vecout.csv'
+filename = '/Users/miura/Dropbox/Mette/vecout27h1.csv'
 #import csv
 # data = csv.reader(open('C:/dropbox/My Dropbox/Pairs_NowCorrectDot.txt', 'rb'), delimiter='\t')
 #data = csv.reader(open('/Users/miura/Dropbox/Mette/Tracks.csv'))
@@ -95,10 +96,10 @@ for row in range(len(frame)):
         #curtid = trajID[d-1]
         #print 'trajectory: ', trajID[d-1]
 #quiver3d(px, py, pz, vx, vy, vz, color=(0, 1, 1), opacity=0.3, mode='2darrow', scale_factor=1)
-#quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
-for row in range(len(frame)):
-  quiver3d( gx[row], gy[row], gz[row], ux[row], vy[row], wz[row], color=colorlist[row], opacity=1, mode='2darrow', scale_factor=1, line_width=4 )
-  #quiver3d( gx[row], gy[row], gz[row], ux[row], vy[row], wz[row], color=colorlist[row], opacity=1, mode='cylinder', scale_factor=1, scale_mode='vector')
+quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
+#for row in range(len(frame)):
+#  quiver3d( gx[row], gy[row], gz[row], ux[row], vy[row], wz[row], color=colorlist[row], opacity=1, mode='2darrow', scale_factor=1, line_width=4 )
+
 #quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
 ##flow(px, py, pz, vx, vy, vz, color=(0, 1, 1), opacity=0.7 )
 maya.show()
