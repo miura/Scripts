@@ -6,9 +6,9 @@
 
 #filename = '/Users/miura/Dropbox/Mette/Tracks.csv'
 filename = '/Users/miura/Dropbox/Mette/vecout.csv'
-filename = '/Users/miura/Dropbox/Mette/vecout27h1.csv'
 filename = 'c:/dropbox/My Dropbox/Mette/vecout.csv'
 filename = 'c:/dropbox/My Dropbox/Mette/vecout27h1.csv'
+filename = '/Users/miura/Dropbox/Mette/vecout27h1.csv'
 #import csv
 # data = csv.reader(open('C:/dropbox/My Dropbox/Pairs_NowCorrectDot.txt', 'rb'), delimiter='\t')
 #data = csv.reader(open('/Users/miura/Dropbox/Mette/Tracks.csv'))
@@ -78,7 +78,7 @@ nanpos = np.isnan(wnn)
 wnn[nanpos] = 0.0
 
 ##### simple show of vectors
-quiver3d( x, y, z, unn, vnn, wnn)# colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
+#quiver3d( x, y, z, unn, vnn, wnn)# colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
 #quiver3d( gx, gy, gz, ux, vy, wz, colormap='copper', opacity=0.3, mode='2darrow', scale_factor=1)
 
 ##### trial to show flow
