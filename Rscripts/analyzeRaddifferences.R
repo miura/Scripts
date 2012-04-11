@@ -48,6 +48,40 @@ upAndLowV2 <- function (refz, measurethickness) {
   return(data)
 }
 
+# refz z level of the reference bar. used for composing file name. 
+# measure thickness is the height (in case of z slicing) of the zone. 
+# in case of radial measurement, this will be the thickness of super ficial layer. 
+# 10 micrometer or so?
+# spherecenter: 3D coordinates of the sphere center. 
+radialZoning <- function (refz, measurethickness, spherecenter) {
+  filepath = paste(filedir, filehead, refz, '.csv', sep="")
+  df <- read.csv(filepath, header=FALSE)
+  inc <- measurethickness
+  #  minz = floor(min(df$V5))
+  minz = 0
+  maxz = floor(max(dist3D(df$V3, df$V4, df$V5, spherecenter)))
+  for(raddist in seq(minz, maxz, by=inc)){  
+    netsum <- sum(df$V9[((dist3D(df$V3, df$V4, df$V5, spherecenter) >= raddist) & (dist3D(df$V3, df$V4, df$V5, spherecenter) < (raddist+inc)))])
+    totaldisp <- sum(abs(df$V9[((dist3D(df$V3, df$V4, df$V5, spherecenter) >= raddist) & (dist3D(df$V3, df$V4, df$V5, spherecenter) < raddist+inc))]))
+    netsumNorm <- netsum/totaldisp
+    pointnum <- length(df$V9[((dist3D(df$V3, df$V4, df$V5, spherecenter) >= raddist) & (dist3D(df$V3, df$V4, df$V5, spherecenter) < raddist+inc))])
+    cat('=== at radial dist', raddist, "-", raddist+inc, "===\n")
+    cat('...min:', minz, '\tmax:', maxz, '\n')
+    cat("refZ", refz, "\tnet:", netsum, '\n')
+    cat("refZ", refz, "\tnetNorm:", netsumNorm, '\n')
+    cat("refZ", refz, "\tpoints:", pointnum, '\n')    
+    if (raddist==minz) data <- netsumNorm
+    else data <- append(data,netsumNorm)
+  }
+  return(data)
+}
+# vx, vy, vz: vector starting point
+#spc: sphere center
+dist3D <- function (vx, vy, vz, spc){
+  dist <- ((vx - spc[1])^2 + (vy - spc[2])^2 + (vz - spc[3])^2)^0.5
+  return(dist)
+}
+
 #20hr data
 filedir = 'C:/dropbox/My Dropbox/Mette/20_23h/'
 #filedir = '/Users/miura/Dropbox/Mette/20_23h/'
