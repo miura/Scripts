@@ -58,8 +58,9 @@ radialZoning <- function (refz, measurethickness, spherecenter) {
   df <- read.csv(filepath, header=FALSE)
   inc <- measurethickness
   #  minz = floor(min(df$V5))
+  dist2center <- dist3D(df$V3, df$V4, df$V5, spherecenter)
   minz = 0
-  maxz = floor(max(dist3D(df$V3, df$V4, df$V5, spherecenter)))
+  maxz = floor(max(dist2center))
   for(raddist in seq(minz, maxz, by=inc)){  
     netsum <- sum(df$V9[((dist3D(df$V3, df$V4, df$V5, spherecenter) >= raddist) & (dist3D(df$V3, df$V4, df$V5, spherecenter) < (raddist+inc)))])
     totaldisp <- sum(abs(df$V9[((dist3D(df$V3, df$V4, df$V5, spherecenter) >= raddist) & (dist3D(df$V3, df$V4, df$V5, spherecenter) < raddist+inc))]))
@@ -99,12 +100,19 @@ filehead = '20_23hrfull_corrected_1_6_6_netdispZ'
 
 cat(paste(filedir, '\n',filehead), '\n')
 
+# reference z position min and max
 startz <- 0
 endz <- 40
-measurethickness = 20
+
+# zoning thickness
+measurethickness = 10
+
+# coordinate of the embryo center, calculated using an ImageJ script. 
+spherecent = c(121, 113,70)
 
 for (i in seq(startz,endz, by=5)){
-  netNorm <- upAndLowV2(i, measurethickness)
+  #netNorm <- upAndLowV2(i, measurethickness)
+  netNorm <- radialZoning(i, measurethickness, spherecent)
   if (i == startz) {
     all <-netNorm
     unitlength <- length(netNorm)
