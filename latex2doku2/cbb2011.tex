@@ -1,0 +1,174 @@
+\documentclass[11pnt, twocolumn]{article}
+
+
+%% Better math support:
+\usepackage{amsmath}
+
+%% Bibliography style:
+\usepackage{mathptmx}           % Use the Times font.
+\usepackage{graphicx}           % Needed for including graphics.
+\usepackage{url}                % Facility for activating URLs.
+
+%% Set the paper size to be A4, with a 2cm margin 
+%% all around the page.
+\usepackage[a4paper,margin=2cm]{geometry}
+
+%% Natbib is a popular style for formatting references.
+\usepackage{natbib}
+%% bibpunct sets the punctuation used for formatting citations.
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+%% textcomp provides extra control sequences for accessing text symbols:
+\usepackage{textcomp}
+\newcommand*{\micro}{\textmu}
+%% Here, we define the \micro command to print a text "mu".
+%% "\newcommand" returns an error if "\micro" is already defined.
+
+% header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[CO,CE]{Cell Biology and Biophysics Unit: Predoc Practical Course 2011}
+\fancyhead[RO, LE] {EMBL}
+\fancyhead[LO, RE] {}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Start of the document.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\author{Kota Miura\\
+  Centre for Molecular and Cellular Imaging\\
+  EMBL Heidelberg\\
+  69120  Germany}
+\date{\today}
+\title{Optimization of Analysis Strategy for Studying Microtubule Polarity Dynamics within \textit{Drosophila} embryo}
+\maketitle
+
+\begin{abstract}
+Using several image processing and analysis tools, we explore strategies for quantifying the microtubule polarity of EB1 labeled cells within Drosophila embryo. Students learn how to measure directionality of movement in image sequences and how to treat circular statistics. 
+\end{abstract}
+
+\section{Introduction}
+
+Regulation of cytoskeletal orientation is a basic mechanism for controlling cell polarity, and hence the dynamics of coordinated multicellular movement. In this practical, we try to establish analysis protocol for studying microtubule orientation within Drosophila embryo and to examine the role of MT orientation in cell dynamics during embryogenesis. For this, we use microtubule binding protein EB1. This protein moves towards the plus end of microtubule, so MT polarity could be measured by tracking EB1 movement. For general review on tracking technique in cell biology, see \citep{Miura2005,Meijering2006}. 
+
+\section{Tracking Tools}
+
+ImageJ/Fiji (http://fiji.sc) is an open source image processing analysis software. Please install it in your laptop. We choose several of the following available tracking tools in ImageJ/Fiji for measuring movement. 
+
+\begin{itemize}
+\item \textbf{Manual Tracking (Manual\_Tracking.class)}: 
+This is a plugin bundled with Fiji that allows you to accumulate track data while you interactively click dots/particles using mouse. More information and download link could be found at:
+\begin{itemize}
+\item \url{http://rsbweb.nih.gov/ij/plugins/track/track.html}
+\end{itemize}
+\end{itemize}
+
+
+\begin{itemize}
+\item \textbf{Particle Tracking (ParticleTracker.jar)} :Automated tracking of particles. Optimized for spherical dots. Developed by the MOSAIC group in the ETH \citep{Sbalzarini2005a, Sbalzarini2006a}.  We use modified version of the particle tracker. 
+\begin{itemize}
+\item \url{http://cmci.embl.de/downloads/particletracker2d}
+\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Flow Analysis (kbi\_ij\_plugins\_882b-101003.jar) }: Optical flow analysis tool. Since documentation is poor, we will only try using it to see how it works. Website is: 
+\begin{itemize}
+\item \url{http://hasezawa.ib.k.u-tokyo.ac.jp/zp/Kbi/KbiFlow}
+\item a short description available in \url{http://hasezawa.ib.k.u-tokyo.ac.jp/zp/Kbi/ImageJKbiPlugins}
+\item Download \url{http://hasezawa.ib.k.u-tokyo.ac.jp/zp/Kbi/kbi\_ij\_plugins\_882b-101003.jar}
+\item This plugin in is written in Scala and requires Scala runtime library. This could be downloaded from the site linked below. 
+\begin{itemize}
+\item \url{http://www.scala-lang.org/downloads/index.html}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Tailor Made Cost Function}: Combined use of Particle analysis function for segmentation and custom designing of cost function to link detected particle.
+\begin{itemize}
+\item This might be a bit advanced, but we could maybe try.  
+\end{itemize}
+\end{itemize}
+
+\section{Object and Methods}
+
+Drosophila embryo image sequence was provided by Sasha Necakov @ Stefano De Renzis lab. Our aim is to plot a histogram of movement orientation, and statistically test whether there is bias in the movement. Among available tools, find the best combination to analyze the microtubule orientation.
+
+\begin{itemize}
+\item Important information about data:
+\begin{itemize}
+\item XY scale: 1 pixel = 0.266 $\mu$m
+\item Time/Frame: 
+\end{itemize}
+\end{itemize}
+We analyze movement of EB1 signal using three strategies with following steps: 
+\begin{enumerate}
+\item Track signals either manually or automatically. When tracking successful, we have numerical data of moving dots (x,y coordinates over time). 
+\item Using resulted coordinates, calculate the direction of EB1 movement (hence MT orientation). See the following section for this calculation. 
+\item Plot the results in histogram in R. Evaluate the bias in orientation using von Mises circular statistics. 
+\end{enumerate}
+
+\section{Circular Statistics}
+
+For treating circular data, a special type of statistics should be used since data wrap at 0 and 2$\pi$ \citep{Fisher1993}. Here, we use R modules to treat circular data.  
+
+\begin{itemize}
+\item Conversion of Cartesian Coordinates to Polar Coordinates
+\begin{itemize}
+\item \textbf{R Package: fisheyeR}
+\item \url{http://finzi.psych.upenn.edu/R/library/fisheyeR/html/toCartesian.html}
+\item we use function \textbf{toPolar(x, y)}
+\item for explanation see \url{http://en.wikipedia.org/wiki/Polar\_coordinate\_system}
+\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item von Mises likelihood estimates
+\begin{itemize}
+\item \url{http://en.wikipedia.org/wiki/Von\_Mises\_distribution}
+\item \textbf{R Package: CircStats}
+\item \url{http://finzi.psych.upenn.edu/R/library/CircStats/html/vm.ml.html}
+\item we use function \textbf{vm.ml(...)}. $\mu$ (mean) and $\kappa$ (concentration parameter) values could be calculated using this function. 
+  
+\item \textbf{R Package: circular (more parameters)}
+\item \url{http://finzi.psych.upenn.edu/R/library/circular/html/mle.vonmises.html}
+\item We use function \textbf{mle.vonmises(...)}. Maximum likelihood estimate of concentration parameter ($\kappa$) is a good indicator of bias in directionality. 
+\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item Data Plotting
+\begin{itemize}
+\item \textbf{R Package: CircStats}
+\item \url{http://finzi.psych.upenn.edu/R/library/CircStats/html/00Index.html}
+\item \textbf{R Package: plotrix}
+\item use function \textbf{radial.plot}
+\item \url{http://www.oga-lab.net/RGM2/func.php?rd_id=plotrix:radial.plot}
+\end{itemize}
+\end{itemize}
+
+
+
+%\begin{figure}
+  %\centering
+%%%  \includegraphics[width=6cm]{sigmoid}
+  %\caption{Example of a sigmoidal curve generated by the R programming
+    %environment.  The title above the curve indicates whether you have
+  %included the postscript or the pdf version of the figure.}
+  %\label{fig:example}
+%\end{figure}
+
+
+\bibliographystyle{plainnat}
+\bibliography{cbb2011ref}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The end.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

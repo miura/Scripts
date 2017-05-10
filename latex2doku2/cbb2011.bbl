@@ -1,0 +1,53 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Fisher(1993)]{Fisher1993}
+N.~I. Fisher.
+\newblock \emph{statistical analysis of circular data}.
+\newblock 1993.
+\newblock ISBN 0521568900.
+\newblock URL
+  \url{http://books.google.com/books/about/Statistical\_Analysis\_of\_Circular%
+\_Data.html?id=wGPj3EoFdJwC}.
+
+\bibitem[Meijering et~al.(2006)Meijering, Smal, and Danuser]{Meijering2006}
+E.~Meijering, I.~Smal, and G.~Danuser.
+\newblock {Tracking in molecular bioimaging}.
+\newblock \emph{IEEE Signal Processing Magazine}, 23\penalty0 (3):\penalty0
+  46--53, May 2006.
+\newblock ISSN 1053-5888.
+\newblock \doi{10.1109/MSP.2006.1628877}.
+\newblock URL
+  \url{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1628877}.
+
+\bibitem[Miura(2005)]{Miura2005}
+Kota Miura.
+\newblock {Tracking movement in cell biology.}
+\newblock \emph{Advances in biochemical engineering/biotechnology},
+  95:\penalty0 267--95, January 2005.
+\newblock ISSN 0724-6145.
+\newblock URL \url{http://www.ncbi.nlm.nih.gov/pubmed/16080272}.
+
+\bibitem[Sbalzarini and Koumoutsakos(2005)]{Sbalzarini2005a}
+I~F Sbalzarini and P~Koumoutsakos.
+\newblock {Feature point tracking and trajectory analysis for video imaging in
+  cell biology.}
+\newblock \emph{Journal of structural biology}, 151\penalty0 (2):\penalty0
+  182--95, August 2005.
+\newblock ISSN 1047-8477.
+\newblock \doi{10.1016/j.jsb.2005.06.002}.
+\newblock URL \url{http://www.ncbi.nlm.nih.gov/pubmed/16043363}.
+
+\bibitem[Sbalzarini(2006)]{Sbalzarini2006a}
+Ivo~F Sbalzarini.
+\newblock {A MATLAB toolbox for virus particle tracking ICoS Technical Report
+  Notice of Copyright}.
+\newblock \emph{Technology}, pages 1--16, 2006.
+\newblock URL
+  \url{https://www1.ethz.ch/mosaic/research/docs/Sbalzarini\_SPT.pdf}.
+
+\end{thebibliography}
